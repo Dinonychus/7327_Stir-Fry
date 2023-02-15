@@ -58,6 +58,11 @@ public final class Constants {
 
     }
 
+    public final static class PinchNTwistConstants {
+        public static final int kSolenoidFoward = 0;
+        public static final int kSolenoidReverse = 1;
+    }
+
     public final static class SpearConstants {
         public static final int kSpearDriveID = 15;
         public static final double kSpearExtend = .2;
@@ -69,5 +74,7 @@ public final class Constants {
 
 
     }
+
+
 
 }

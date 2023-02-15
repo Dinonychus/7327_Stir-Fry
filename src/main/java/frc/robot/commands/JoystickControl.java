@@ -41,7 +41,7 @@ private final DoubleSupplier rotateSpeed;
     double left = realMoveSpeed + realRotateSpeed;
     double right = realMoveSpeed - realRotateSpeed;
 
-    driveTrain.setMotorSpeed(left, right);
+    driveTrain.setMotorSpeed(-left, right);
 
     //driveTrain.setFalconMotorSpeed(left, right);
 
