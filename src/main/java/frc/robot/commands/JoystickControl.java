@@ -38,10 +38,12 @@ private final DoubleSupplier rotateSpeed;
     double realMoveSpeed = moveSpeed.getAsDouble();
     double realRotateSpeed = rotateSpeed.getAsDouble();
 
-    double left = realMoveSpeed + realRotateSpeed;
-    double right = realMoveSpeed - realRotateSpeed;
+    //double left = realMoveSpeed + realRotateSpeed;
+    //double right = realMoveSpeed - realRotateSpeed;
 
-    driveTrain.setMotorSpeed(-left, right);
+    driveTrain.setArcadeSpeed(realMoveSpeed, realRotateSpeed);
+
+   // driveTrain.setMotorSpeed(-left, right);
 
     //driveTrain.setFalconMotorSpeed(left, right);
 
@@ -52,7 +54,8 @@ private final DoubleSupplier rotateSpeed;
   @Override
   public void end(boolean interrupted) {
     //driveTrain.setFalconMotorSpeed(0, 0);
-    driveTrain.setMotorSpeed(0, 0);
+   // driveTrain.setMotorSpeed(0, 0);
+    driveTrain.setArcadeSpeed(0, 0);
   }
 
   // Returns true when the command should end.

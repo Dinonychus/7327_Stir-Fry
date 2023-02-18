@@ -52,8 +52,8 @@ public class RobotContainer {
     () -> driveController.getRawAxis(Constants.rightX)));*/
 
     driveTrain.setDefaultCommand(new JoystickControl(driveTrain,
-     () -> drive1Controller.getRawAxis(Constants.kLeft_Y),
-     () -> drive1Controller.getRawAxis(Constants.kRight_X)));
+     () -> drive1Controller.getRawAxis(Constants.kRight_X),
+     () -> drive1Controller.getRawAxis(Constants.kLeft_Y)));
     
     
      //spearPID.setDefaultCommand(new SetSpearPos(0, spearPID));
@@ -72,6 +72,9 @@ public class RobotContainer {
 
     mechanism1Controller.a().onTrue(new RetractClaw(the_Pinch_n_Twist));
     mechanism1Controller.b().onTrue(new ExtendClaw(the_Pinch_n_Twist));
+
+    drive1Controller.leftBumper().onTrue(new JoystickControl(driveTrain, 
+    () -> .05, () -> 0));
 
     mechanism1Controller.leftBumper().onTrue(new SetSpearPos(
       SpearConstants.kSpearRetract, spearPID));

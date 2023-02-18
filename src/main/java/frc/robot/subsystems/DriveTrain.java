@@ -16,7 +16,6 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.SpearConstants;
 
 public class DriveTrain extends SubsystemBase {
-  
   private CANSparkMax frontLeftMotor = new CANSparkMax(DriveConstants.kFLDriveID, MotorType.kBrushless);
   private CANSparkMax frontRightMotor = new CANSparkMax(DriveConstants.kFRDriveID, MotorType.kBrushless);
   private CANSparkMax backLeftMotor = new CANSparkMax(DriveConstants.kBLDriveID, MotorType.kBrushless);
@@ -35,8 +34,7 @@ public class DriveTrain extends SubsystemBase {
   private MotorControllerGroup m_leftSide = new MotorControllerGroup(frontLeftMotor, backLeftMotor);
   private MotorControllerGroup m_rightSide = new MotorControllerGroup(frontRightMotor, backRightMotor);
 
-  //private MotorControllerGroup LeftSideFalcon = new MotorControllerGroup(frontLeftFalconMotor, backLeftFalconMotor);
-
+  private DifferentialDrive arcDrive = new DifferentialDrive(m_leftSide, m_rightSide);
 
 
 
@@ -50,11 +48,18 @@ public class DriveTrain extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void setMotorSpeed (double leftSpeed, double rightSpeed){
+ /*  public void setMotorSpeed (double leftSpeed, double rightSpeed){
+    arcDrive.arcadeDrive(leftSpeed, rightSpeed);
     m_leftSide.set(leftSpeed);
     m_rightSide.set(rightSpeed);
     
+  } */
+  
+
+  public void setArcadeSpeed (double moveSpeed, double rotateSpeed){
+    arcDrive.arcadeDrive(moveSpeed, rotateSpeed);
   }
+  
 
  /*  public void setSpearMotorSpeed (double spearSpeed){
     spearTestMotor.set(spearSpeed);
@@ -68,5 +73,6 @@ public class DriveTrain extends SubsystemBase {
     extraMotor1ID.set(TalonFXControlMode.PercentOutput, leftFalconSpeed);
    // extraMotor2ID.set(TalonFXControlMode.PercentOutput, rightFalconSpeed);
   } */ 
+
 
 }
