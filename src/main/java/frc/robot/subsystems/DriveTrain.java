@@ -16,24 +16,19 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.SpearConstants;
 
 public class DriveTrain extends SubsystemBase {
+
+  //Establishes drive motor controllers
   private CANSparkMax frontLeftMotor = new CANSparkMax(DriveConstants.kFLDriveID, MotorType.kBrushless);
   private CANSparkMax frontRightMotor = new CANSparkMax(DriveConstants.kFRDriveID, MotorType.kBrushless);
   private CANSparkMax backLeftMotor = new CANSparkMax(DriveConstants.kBLDriveID, MotorType.kBrushless);
   private CANSparkMax backRightMotor = new CANSparkMax(DriveConstants.kBRDriveID, MotorType.kBrushless);
 
- /* private TalonFX frontLeftFalconMotor = new TalonFX(DriveConstants.kFLFalconDriveID);
-  private TalonFX backLeftFalconMotor = new TalonFX(DriveConstants.kBLFalconDriveID);
-  private TalonFX frontRightFalconMotor = new TalonFX(DriveConstants.kFRFalconDriveID);
-  private TalonFX backRightFalconMotor = new TalonFX(DriveConstants.kBRFalconDriveID);
-  private TalonFX extraMotor1ID = new TalonFX(DriveConstants.extraMotor1);
- // private TalonFX extraMotor2ID = new TalonFX(DriveConstants.extraMotor2); */ 
 
- // private CANSparkMax spearTestMotor = new CANSparkMax(SpearConstants.kSpearDriveID, MotorType.kBrushless);
-
-
+  //Consolidates left motors and right motors into motor groups through MotorControllerGroup
   private MotorControllerGroup m_leftSide = new MotorControllerGroup(frontLeftMotor, backLeftMotor);
   private MotorControllerGroup m_rightSide = new MotorControllerGroup(frontRightMotor, backRightMotor);
 
+  //Combines motor control groups into a DifferentialDrive function
   private DifferentialDrive arcDrive = new DifferentialDrive(m_leftSide, m_rightSide);
 
 

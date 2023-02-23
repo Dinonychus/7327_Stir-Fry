@@ -6,20 +6,26 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
-import edu.wpi.first.wpilibj.motorcontrol.Talon;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj2.command.TrapezoidProfileSubsystem;
 import frc.robot.Constants.ElevatorConstants;
 
-public class ElevatorPID extends SubsystemBase {
-
+public class Elevator extends TrapezoidProfileSubsystem {
 
   private TalonFX leftElevatorFalcon = new TalonFX(ElevatorConstants.kLeftElevatorDriveID);
   private TalonFX rightElevatorFalcon = new TalonFX(ElevatorConstants.kRightElevatorDriveID);
 
-  public ElevatorPID() {}
+
+  public Elevator() {
+    super(
+        // The constraints for the generated profiles
+        new TrapezoidProfile.Constraints(1, .5),
+        // The initial position of the mechanism
+        0);
+  }
 
   @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
+  protected void useState(TrapezoidProfile.State state) {
+    // Use the computed profile state here.
   }
 }

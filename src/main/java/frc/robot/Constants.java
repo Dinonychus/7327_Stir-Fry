@@ -49,13 +49,6 @@ public final class Constants {
     public static final int kBRDriveID = 4;
 
 
-    public static final int kFLFalconDriveID = 12;
-    public static final int kFRFalconDriveID = 13;
-    public static final int kBLFalconDriveID = 14;
-    public static final int kBRFalconDriveID = 15;
-    public static final int extraMotor1 = 16;
-    //public static final int extraMotor2 = 11;
-
     }
 
     public final static class PinchNTwistConstants {
@@ -72,6 +65,12 @@ public final class Constants {
         public static final double kISpear = .07;
         public static final double kDSpear = 0.0;
 
+
+    }
+
+    public final static class ElevatorConstants {
+        public static final int kLeftElevatorDriveID = 6;
+        public static final int kRightElevatorDriveID = 9;
 
     }
 
