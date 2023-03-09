@@ -61,9 +61,14 @@ public final class Constants {
         public static final double kSpearExtend = .2;
         public static final double kSpearRetract = .2;
         
-        public static final double kPSpear = 1;
-        public static final double kISpear = .07;
-        public static final double kDSpear = 0.0;
+        public static final double kPSpear = .2;
+        public static final double kISpear = .002;
+        public static final double kDSpear = 2;
+
+        public static final double kSpearRatio = 1/10;
+        public static final double kElevatorRatio = 262.5 / 1;
+
+
 
 
     }
@@ -71,6 +76,21 @@ public final class Constants {
     public final static class ElevatorConstants {
         public static final int kLeftElevatorDriveID = 6;
         public static final int kRightElevatorDriveID = 9;
+
+        //PID magic
+        public static final double kEP = .5;
+        public static final double kEI = .005;
+        public static final double kED = 5;
+
+        //Motion magic
+        public static final double kEVelo = 0.5;
+        public static final double kEAccel = Math.sqrt(kEVelo);
+
+        //Setpoints for elevator
+        public static final double kElevatorFloor = 2;
+        public static final double kElevatorMid = 5;
+        public static final double kElevatorHigh = 8;
+
 
     }
 

@@ -4,15 +4,13 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSensor;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkMaxAnalogSensor;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
-import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.SpearConstants;
 
 
@@ -22,7 +20,6 @@ public class SpearPID extends PIDSubsystem {
   private CANSparkMax m_SpearPID = new CANSparkMax(SpearConstants.kSpearDriveID, MotorType.kBrushless);
   private RelativeEncoder m_SpearPot = m_SpearPID.getEncoder();
  // private RelativeEncoder m_Spear2Pot = m_SpearPID.getEncoder(null, 0)
-  private SparkMaxAnalogSensor m_analogSensor = m_SpearPID.getAnalog(SparkMaxAnalogSensor.Mode.kAbsolute);
 
 
 

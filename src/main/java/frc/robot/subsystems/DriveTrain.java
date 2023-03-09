@@ -4,8 +4,6 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -13,7 +11,6 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.Constants.SpearConstants;
 
 public class DriveTrain extends SubsystemBase {
 
@@ -43,31 +40,12 @@ public class DriveTrain extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
- /*  public void setMotorSpeed (double leftSpeed, double rightSpeed){
-    arcDrive.arcadeDrive(leftSpeed, rightSpeed);
-    m_leftSide.set(leftSpeed);
-    m_rightSide.set(rightSpeed);
-    
-  } */
-  
+
 
   public void setArcadeSpeed (double moveSpeed, double rotateSpeed){
     arcDrive.arcadeDrive(moveSpeed, rotateSpeed);
   }
   
-
- /*  public void setSpearMotorSpeed (double spearSpeed){
-    spearTestMotor.set(spearSpeed);
-  } */
-
- /* public void setFalconMotorSpeed (double leftFalconSpeed, double rightFalconSpeed){
-    frontLeftFalconMotor.set(TalonFXControlMode.PercentOutput, leftFalconSpeed);
-    backLeftFalconMotor.set(TalonFXControlMode.PercentOutput, rightFalconSpeed);
-    frontRightFalconMotor.set(TalonFXControlMode.PercentOutput, leftFalconSpeed);
-    backRightFalconMotor.set(TalonFXControlMode.PercentOutput, rightFalconSpeed);
-    extraMotor1ID.set(TalonFXControlMode.PercentOutput, leftFalconSpeed);
-   // extraMotor2ID.set(TalonFXControlMode.PercentOutput, rightFalconSpeed);
-  } */ 
 
 
 }

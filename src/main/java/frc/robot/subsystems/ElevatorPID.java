@@ -4,22 +4,51 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
-import edu.wpi.first.wpilibj.motorcontrol.Talon;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import frc.robot.Constants.ElevatorConstants;
 
-public class ElevatorPID extends SubsystemBase {
-
-
+public class ElevatorPID extends PIDSubsystem {
   private TalonFX leftElevatorFalcon = new TalonFX(ElevatorConstants.kLeftElevatorDriveID);
   private TalonFX rightElevatorFalcon = new TalonFX(ElevatorConstants.kRightElevatorDriveID);
 
-  public ElevatorPID() {}
+
+  /** Creates a new Elevator2. */
+  public ElevatorPID() {
+    super(
+        // The PIDController used by the subsystem
+        new PIDController(ElevatorConstants.kEP, ElevatorConstants.kEI, ElevatorConstants.kED));
+  }
+
+  @Override
+  public void useOutput(double output, double setpoint) {
+    leftElevatorFalcon.set(TalonFXControlMode.Position, setpoint);
+    //rightElevatorFalcon.set(TalonFXControlMode.Follower, setpoint);
+    rightElevatorFalcon.follow(leftElevatorFalcon);
+    // Use the output here
+  }
+
+  @Override
+  public double getMeasurement() {
+  return leftElevatorFalcon.getActiveTrajectoryPosition();
+  }
+
+
+
+
+public void elevatorLog() {
+    //takes measurement acquired in getMeasurement and turns into string for elevatorLog
+
+  SmartDashboard.putNumber("Elevator", getMeasurement());
+}
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    elevatorLog();
+    //getMeasurement();
   }
 }

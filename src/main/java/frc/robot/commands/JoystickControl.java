@@ -41,7 +41,7 @@ private final DoubleSupplier rotateSpeed;
     //double left = realMoveSpeed + realRotateSpeed;
     //double right = realMoveSpeed - realRotateSpeed;
 
-    driveTrain.setArcadeSpeed(realMoveSpeed, realRotateSpeed);
+    driveTrain.setArcadeSpeed(realRotateSpeed, realMoveSpeed);
 
    // driveTrain.setMotorSpeed(-left, right);
 

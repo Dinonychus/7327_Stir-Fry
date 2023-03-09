@@ -4,23 +4,19 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.ElevatorConstants;
 import frc.robot.Constants.SpearConstants;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.ExtendClaw;
-// import frc.robot.commands.SpearManualControl;
+import frc.robot.commands.Auto1;
+import frc.robot.commands.ElevatorControl;
 import frc.robot.commands.JoystickControl;
-import frc.robot.commands.RetractClaw;
 import frc.robot.commands.SetSpearPos;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.ElevatorPID;
 import frc.robot.subsystems.SpearPID;
 import frc.robot.subsystems.The_Pinch_n_Twist;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -30,18 +26,17 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final DriveTrain driveTrain = new DriveTrain();
   private final The_Pinch_n_Twist the_Pinch_n_Twist = new The_Pinch_n_Twist();
   private final SpearPID spearPID = new SpearPID();
+  private final ElevatorPID elevatorPID = new ElevatorPID();
 
 
-  private final XboxController driveController = new XboxController(Constants.driveController_ID);
-  private final XboxController mechanismController = new XboxController(Constants.mechanismController_ID);
-  private final CommandXboxController drive1Controller = new CommandXboxController(Constants.driveController_ID);
-  private final CommandXboxController mechanism1Controller = new CommandXboxController(Constants.mechanismController_ID);
+  private final CommandXboxController driveController = new CommandXboxController(Constants.driveController_ID);
+  private final CommandXboxController mechanismController = new CommandXboxController(Constants.mechanismController_ID);
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  private final Command auto1 = new Auto1(driveTrain, null, null);
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -52,8 +47,8 @@ public class RobotContainer {
     () -> driveController.getRawAxis(Constants.rightX)));*/
 
     driveTrain.setDefaultCommand(new JoystickControl(driveTrain,
-     () -> drive1Controller.getRawAxis(Constants.kRight_X),
-     () -> drive1Controller.getRawAxis(Constants.kLeft_Y)));
+     () -> driveController.getRawAxis(Constants.kLeft_Y),
+     () -> -driveController.getRawAxis(Constants.kRight_X)));
     
     
      //spearPID.setDefaultCommand(new SetSpearPos(0, spearPID));
@@ -70,17 +65,22 @@ public class RobotContainer {
 
 
 
-    mechanism1Controller.a().onTrue(new RetractClaw(the_Pinch_n_Twist));
-    mechanism1Controller.b().onTrue(new ExtendClaw(the_Pinch_n_Twist));
+    mechanismController.button(Constants.kA_Button).toggleOnTrue(Commands.startEnd(the_Pinch_n_Twist::pinchExtend, the_Pinch_n_Twist::pinchRetract, the_Pinch_n_Twist));
 
-    drive1Controller.leftBumper().onTrue(new JoystickControl(driveTrain, 
+    driveController.leftBumper().onTrue(new JoystickControl(driveTrain, 
     () -> .05, () -> 0));
 
-    mechanism1Controller.leftBumper().onTrue(new SetSpearPos(
+    mechanismController.leftBumper().onTrue(new SetSpearPos(
       SpearConstants.kSpearRetract, spearPID));
 
-    mechanism1Controller.rightBumper().onTrue(new SetSpearPos(
+    mechanismController.rightBumper().onTrue(new SetSpearPos(
       SpearConstants.kSpearExtend, spearPID));
+
+      
+   // mechanismController.pov(Constants.kDPadDown).onTrue(new ElevatorControl(elevatorPID, ElevatorConstants.kElevatorFloor));
+   // mechanismController.pov(Constants.kDPadRight).onTrue(new ElevatorControl(elevatorPID, ElevatorConstants.kElevatorMid));
+   // mechanismController.pov(Constants.kDPadUp).onTrue(new ElevatorControl(elevatorPID, ElevatorConstants.kElevatorHigh));
+
 
   }
 
@@ -90,7 +90,8 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+
+    //Currently blank command, replace or fill in auto1 for autonomous period
+    return auto1;
   }
 }
