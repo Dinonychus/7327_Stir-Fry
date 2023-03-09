@@ -40,6 +40,8 @@ public final class Constants {
     public static final int kX_Button = 3;
     public static final double kDeadband = 0.05;
 
+    public static final double kEncoderTick2Meter = 1 /2048.0 * 0.1 * Math.PI;
+
 
 
     public  final static class DriveConstants {
@@ -66,7 +68,7 @@ public final class Constants {
         public static final double kDSpear = 2;
 
         public static final double kSpearRatio = 1/10;
-        public static final double kElevatorRatio = 262.5 / 1;
+        public static final double kElevatorRatio = 1 / 262.5;
 
 
 
@@ -90,6 +92,9 @@ public final class Constants {
         public static final double kElevatorFloor = 2;
         public static final double kElevatorMid = 5;
         public static final double kElevatorHigh = 8;
+
+        public static final double kElevatorManualFoward = .5;
+        public static final double kElevatorManualReverse = -.5;
 
 
     }

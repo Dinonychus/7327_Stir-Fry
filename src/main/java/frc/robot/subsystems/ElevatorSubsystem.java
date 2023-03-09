@@ -7,18 +7,20 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
+import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
+import frc.robot.Constants;
 import frc.robot.Constants.ElevatorConstants;
 
-public class ElevatorPID extends PIDSubsystem {
+public class ElevatorSubsystem extends PIDSubsystem {
   private TalonFX leftElevatorFalcon = new TalonFX(ElevatorConstants.kLeftElevatorDriveID);
   private TalonFX rightElevatorFalcon = new TalonFX(ElevatorConstants.kRightElevatorDriveID);
 
 
   /** Creates a new Elevator2. */
-  public ElevatorPID() {
+  public ElevatorSubsystem() {
     super(
         // The PIDController used by the subsystem
         new PIDController(ElevatorConstants.kEP, ElevatorConstants.kEI, ElevatorConstants.kED));
@@ -32,9 +34,13 @@ public class ElevatorPID extends PIDSubsystem {
     // Use the output here
   }
 
+  public void setEMotor(double eSpeed) {
+    leftElevatorFalcon.set(TalonFXControlMode.PercentOutput, eSpeed);
+  }
+
   @Override
   public double getMeasurement() {
-  return leftElevatorFalcon.getActiveTrajectoryPosition();
+  return leftElevatorFalcon.getActiveTrajectoryPosition() * Constants.kEncoderTick2Meter;
   }
 
 
