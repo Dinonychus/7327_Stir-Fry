@@ -59,16 +59,15 @@ public final class Constants {
     }
 
     public final static class SpearConstants {
-        public static final int kSpearDriveID = 15;
-        public static final double kSpearExtend = .2;
-        public static final double kSpearRetract = .2;
+        public static final int kSpearDriveID = 16;
+        public static final double kSpearExtend = .3;
+        public static final double kSpearRetract = .3;
         
         public static final double kPSpear = .2;
         public static final double kISpear = .002;
         public static final double kDSpear = 2;
 
         public static final double kSpearRatio = 1/10;
-        public static final double kElevatorRatio = 1 / 262.5;
 
 
 
@@ -83,6 +82,8 @@ public final class Constants {
         public static final double kEP = .5;
         public static final double kEI = .005;
         public static final double kED = 5;
+        public static final double kElevatorRatio = 1 /10;
+
 
         //Motion magic
         public static final double kEVelo = 0.5;
@@ -93,11 +94,24 @@ public final class Constants {
         public static final double kElevatorMid = 5;
         public static final double kElevatorHigh = 8;
 
-        public static final double kElevatorManualFoward = .5;
-        public static final double kElevatorManualReverse = -.5;
+        public static final double kElevatorManualFoward = .3;
+        public static final double kElevatorManualReverse = -.3;
+
+        public static final double kEncoderTick2Meter = 1 /2048.0 * ElevatorConstants.kElevatorRatio * Math.PI;
+
 
 
     }
+
+public final static class ElevatorDropConstants {
+    public static final int kElevatorDropID = 14;
+    public static final double kEDropRatio = 1 / 262.5;
+
+    public static final double kElevatorManualRaise = .2;
+    public static final double kElevatorManualDrop = -.2;
+
+    public static final double kDropLimitSwitch = 0;
+}
 
 
 

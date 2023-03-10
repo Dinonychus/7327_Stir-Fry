@@ -7,12 +7,14 @@ package frc.robot;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.Constants.SpearConstants;
 import frc.robot.commands.Auto1;
-import frc.robot.commands.ElevatorControl;
+import frc.robot.commands.ElevatorManual;
+import frc.robot.commands.ElevatorPID;
 import frc.robot.commands.JoystickControl;
-import frc.robot.commands.SetSpearPos;
+import frc.robot.commands.SpearManual;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.ElevatorPID;
+import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.SpearPID;
+import frc.robot.subsystems.SpearSubsytem;
 import frc.robot.subsystems.The_Pinch_n_Twist;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -28,8 +30,8 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveTrain driveTrain = new DriveTrain();
   private final The_Pinch_n_Twist the_Pinch_n_Twist = new The_Pinch_n_Twist();
-  private final SpearPID spearPID = new SpearPID();
-  private final ElevatorPID elevatorPID = new ElevatorPID();
+  private final ElevatorSubsystem elevatorPID = new ElevatorSubsystem();
+  private final SpearSubsytem spearSubsytem = new SpearSubsytem();
 
 
   private final CommandXboxController driveController = new CommandXboxController(Constants.driveController_ID);
@@ -70,11 +72,19 @@ public class RobotContainer {
     driveController.leftBumper().onTrue(new JoystickControl(driveTrain, 
     () -> .05, () -> 0));
 
-    mechanismController.leftBumper().onTrue(new SetSpearPos(
-      SpearConstants.kSpearRetract, spearPID));
+    mechanismController.leftBumper().onTrue(new SpearManual(
+     spearSubsytem , SpearConstants.kSpearRetract));
 
-    mechanismController.rightBumper().onTrue(new SetSpearPos(
-      SpearConstants.kSpearExtend, spearPID));
+
+    mechanismController.rightBumper().onTrue(new SpearManual(
+      spearSubsytem, SpearConstants.kSpearExtend));
+
+    mechanismController.povDown().onTrue(new ElevatorPID(elevatorPID, ElevatorConstants.kElevatorFloor));
+    mechanismController.povRight().onTrue(new ElevatorPID(elevatorPID, ElevatorConstants.kElevatorMid));
+    mechanismController.povUp().onTrue(new ElevatorPID(elevatorPID, ElevatorConstants.kElevatorHigh));
+
+    mechanismController.x().onTrue(new ElevatorManual(elevatorPID, ElevatorConstants.kElevatorManualFoward));
+    mechanismController.b().onTrue(new ElevatorManual(elevatorPID, ElevatorConstants.kElevatorManualReverse));
 
       
    // mechanismController.pov(Constants.kDPadDown).onTrue(new ElevatorControl(elevatorPID, ElevatorConstants.kElevatorFloor));

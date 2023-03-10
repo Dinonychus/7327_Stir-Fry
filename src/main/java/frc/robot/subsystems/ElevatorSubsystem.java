@@ -7,16 +7,19 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
-import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
-import frc.robot.Constants;
 import frc.robot.Constants.ElevatorConstants;
 
 public class ElevatorSubsystem extends PIDSubsystem {
   private TalonFX leftElevatorFalcon = new TalonFX(ElevatorConstants.kLeftElevatorDriveID);
   private TalonFX rightElevatorFalcon = new TalonFX(ElevatorConstants.kRightElevatorDriveID);
+
+  private DigitalInput elevatorLimitSwitch = new DigitalInput(0);
+
+  
 
 
   /** Creates a new Elevator2. */
@@ -35,12 +38,20 @@ public class ElevatorSubsystem extends PIDSubsystem {
   }
 
   public void setEMotor(double eSpeed) {
-    leftElevatorFalcon.set(TalonFXControlMode.PercentOutput, eSpeed);
+    if (eSpeed > 0) {
+      if (elevatorLimitSwitch.get()) {
+        leftElevatorFalcon.set(TalonFXControlMode.PercentOutput, 0);
+
+      } else {
+        leftElevatorFalcon.set(TalonFXControlMode.PercentOutput, eSpeed);
+
+      }
+    }
   }
 
   @Override
   public double getMeasurement() {
-  return leftElevatorFalcon.getActiveTrajectoryPosition() * Constants.kEncoderTick2Meter;
+  return leftElevatorFalcon.getActiveTrajectoryPosition() * ElevatorConstants.kEncoderTick2Meter;
   }
 
 
